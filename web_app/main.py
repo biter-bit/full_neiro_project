@@ -14,8 +14,18 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 
+def format_request_data(request):
+    request_data = {
+        "HTTP Method": request.method,
+        "URL": str(request.url),
+        "Client IP": request.client.host,
+        "Headers": {key.decode(): value.decode() for key, value in request.headers.raw},
+        "Query Parameters": dict(request.query_params),
+        "Path Parameters": dict(request.path_params)
+    }
+    return json.dumps(request_data, indent=4, ensure_ascii=False)
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    # Логирование атрибутов запроса
-    logger.info("Request attributes: %s", request.__dict__)
-    return templates.TemplateResponse("success.html", {"request": request})
+    formatted_request = format_request_data(request)
+    return templates.TemplateResponse("success.html", {"request_data": formatted_request})
