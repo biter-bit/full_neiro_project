@@ -28,4 +28,4 @@ def format_request_data(request):
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     formatted_request = format_request_data(request)
-    return templates.TemplateResponse("success.html", {"request_data": formatted_request})
+    return templates.TemplateResponse("success.html", {"request": request, "request_data": formatted_request})
