@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:16.2-alpine
+    container_name: db_new
+    restart: on-failure
+    environment:
+      - 'TZ=GMT+3'
+      - 'PGTZ=GMT+3'
+      - 'POSTGRES_DB=${DB_NAME}'
+      - 'POSTGRES_USER=${DB_USER}'
+      - 'POSTGRES_PASSWORD=${DB_PASS}'
+    volumes:
+      - ./data/pg_data:/var/lib/postgresql/data
+
+  web:
+    container_name: web_app
+    build:
+      context: ./
+      dockerfile: ./DockerfileFastApi
+    restart: on-failure
+    depends_on:
+      - db
+    volumes:
+      - ./web_app/templates:/code/fastapi_app/templates
+    command: "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+
+  bot:
+    container_name: bot_app
+    build:
+      context: ./
+      dockerfile: DockerfileBot
+    restart: on-failure
+    depends_on:
+      - db
+      - web
+    volumes:
+      - ./mj_results:/code/neiro_app/mj_results
+    command: "python main.py"
+
+  nginx:
+    container_name: nginx
+    image: nginx:stable
+    restart: on-failure
+    depends_on:
+      - web
+    volumes:
+      - ./data/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./data/certs:/certs
+    ports:
+      - "80:80"
+      - "443:443"
+
+volumes:
+  pg_data:

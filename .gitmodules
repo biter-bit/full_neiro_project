@@ -1,0 +1,3 @@
+[submodule "tgbot_app"]
+	path = tgbot_app
+	url = /home/michael/projects/neiro_tgm_bot/tgbot_app
