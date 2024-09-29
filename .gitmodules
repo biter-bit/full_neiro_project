@@ -1,3 +1,6 @@
 [submodule "tgbot_app"]
 	path = tgbot_app
 	url = git@github.com:biter-bit/neiro_tgm_bot.git
+[submodule "payment_app"]
+	path = payment_app
+	url = git@github.com:biter-bit/web_neiro_tgm.git
