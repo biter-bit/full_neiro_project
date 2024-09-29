@@ -13,7 +13,7 @@ services:
       - ./data/pg_data:/var/lib/postgresql/data
 
   web:
-    container_name: web_app
+    container_name: payment_app
     build:
       context: ./
       dockerfile: ./DockerfileFastApi
@@ -21,7 +21,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./web_app/templates:/code/fastapi_app/templates
+      - ./payment_app/templates:/code/fastapi_app/templates
     command: "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
 
   bot:

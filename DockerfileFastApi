@@ -2,7 +2,7 @@ FROM python:3.10-slim
 
 WORKDIR /code/web_app/
 
-COPY tgbot_app/requirements.txt ./
+COPY payment_app/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY web_app/. .
+COPY payment_app/. .
