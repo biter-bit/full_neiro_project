@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:16.2-alpine
-    container_name: db_new
+    container_name: db
     restart: on-failure
     environment:
       - 'TZ=GMT+3'
