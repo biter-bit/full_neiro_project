@@ -35,7 +35,7 @@ services:
       - web
     volumes:
       - ./mj_results:/code/neiro_app/mj_results
-    command: "python main.py"
+    command: sh -c "alembic upgrade head && python main.py"
 
   nginx:
     container_name: nginx

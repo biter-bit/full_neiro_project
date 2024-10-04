@@ -12,18 +12,17 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-
-
+# Копируем зависимости и устанавливаем их
 COPY tgbot_app/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Копируем весь код приложения
 COPY tgbot_app/. .
 
 # Устанавливаем переменные окружения для использования Alembic
 ENV PATH_WORK=/code/tgbot_app
 ENV PATH_ENV=/code/tgbot_app/.env
 
-# Команда для запуска Alembic миграции
-RUN alembic revision --autogenerate -m "Добавил новую колонку в таблицу user"
-CMD ["alembic", "upgrade", "head"]
-RUN bash ./bash.sh
+# Перемещение bash.sh в контейнер и установка прав на выполнение
+COPY tgbot_app/bash.sh ./bash.sh
+RUN chmod +x ./bash.sh
