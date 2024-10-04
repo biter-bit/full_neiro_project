@@ -24,5 +24,6 @@ ENV PATH_WORK=/code/tgbot_app
 ENV PATH_ENV=/code/tgbot_app/.env
 
 # Команда для запуска Alembic миграции
+RUN alembic revision --autogenerate -m "Добавил новую колонку в таблицу user"
 CMD ["alembic", "upgrade", "head"]
 RUN bash ./bash.sh
