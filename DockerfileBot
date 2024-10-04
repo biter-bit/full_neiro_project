@@ -19,5 +19,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY tgbot_app/. .
 
-RUN alembic upgrade head
+# Устанавливаем переменные окружения для использования Alembic
+ENV PATH_WORK=/app
+ENV PATH_ENV=/app/.env
+
+# Команда для запуска Alembic миграции
+CMD ["alembic", "upgrade", "head"]
 RUN bash ./bash.sh
