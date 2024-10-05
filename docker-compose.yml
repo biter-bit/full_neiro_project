@@ -2,7 +2,7 @@ services:
   redis:
     image: redis:latest  # Используем последнюю версию Redis
     container_name: redis
-    command: ["redis-server", "--appendonly", "no"]  # Отключает сохранение данных
+    command: ["redis-server", "--save", "", "--appendonly", "no"]  # Отключаем постоянное сохранение данных
     ports:
       - "6380:6379"  # Пробрасываем порт 6379
   db:
