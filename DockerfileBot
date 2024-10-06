@@ -25,4 +25,3 @@ ENV PATH_ENV=/code/tgbot_app/.env
 
 # Перемещение bash.sh в контейнер и установка прав на выполнение
 COPY tgbot_app/bash.sh ./bash.sh
-RUN chmod +x ./bash.sh

@@ -15,6 +15,8 @@ services:
       - 'POSTGRES_DB=${DB_NAME}'
       - 'POSTGRES_USER=${DB_USER}'
       - 'POSTGRES_PASSWORD=${DB_PASS}'
+    ports:
+      - "5433:5432"
     volumes:
       - ./data/pg_data:/var/lib/postgresql/data
 
@@ -26,6 +28,7 @@ services:
     restart: on-failure
     depends_on:
       - db
+      - redis
     volumes:
       - ./payment_app/templates:/code/fastapi_app/templates
     command: "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
@@ -39,9 +42,10 @@ services:
     depends_on:
       - db
       - web
+      - redis
     volumes:
       - ./mj_results:/code/neiro_app/mj_results
-    command: sh -c "alembic upgrade head && python main.py"
+    command: sh -c "alembic upgrade head && chmod +x ./bash.sh && python main.py"
 
   nginx:
     container_name: nginx
