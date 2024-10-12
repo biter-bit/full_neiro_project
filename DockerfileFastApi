@@ -6,3 +6,4 @@ COPY payment_app/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY payment_app/. .
+COPY .env .
