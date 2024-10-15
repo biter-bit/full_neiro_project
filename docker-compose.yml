@@ -44,7 +44,8 @@ services:
       - web
       - redis
     volumes:
-      - ./mj_results:/code/neiro_app/mj_results
+      - ./mj_results:/code/tgbot_app/mj_results
+      - ./tgbot_app/logs:/code/tgbot_app/logs
     command: sh -c "alembic upgrade head && chmod +x ./bash.sh && python main.py"
 
   nginx:
