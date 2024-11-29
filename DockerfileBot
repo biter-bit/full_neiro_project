@@ -25,6 +25,3 @@ COPY .env .
 # Устанавливаем переменные окружения для использования Alembic
 ENV PATH_WORK=/code/tgbot_app
 ENV PATH_ENV=/code/tgbot_app/.env
-
-# Перемещение bash.sh в контейнер и установка прав на выполнение
-COPY tgbot_app/bash.sh ./bash.sh
