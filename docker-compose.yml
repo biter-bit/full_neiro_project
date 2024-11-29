@@ -15,7 +15,6 @@ services:
       - 'POSTGRES_DB=${DB_NAME}'
       - 'POSTGRES_USER=${DB_USER}'
       - 'POSTGRES_PASSWORD=${DB_PASS}'
-      - 'PGOPTIONS=--max_connections=200'
     ports:
       - "5433:5432"
     volumes:
@@ -47,6 +46,7 @@ services:
     volumes:
       - ./mj_results:/code/tgbot_app/mj_results
       - ./tgbot_app/logs:/code/tgbot_app/logs
+      - ./tgbot_app/migrations/versions:/code/tgbot_app/migrations/versions
     command: sh -c "alembic upgrade head && python main.py"
 
     # command: sh -c "alembic upgrade head && chmod +x ./bash.sh && python main.py"
