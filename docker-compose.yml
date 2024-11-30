@@ -47,7 +47,7 @@ services:
       - ./mj_results:/code/tgbot_app/mj_results
       - ./tgbot_app/logs:/code/tgbot_app/logs
       - ./tgbot_app/migrations/versions:/code/tgbot_app/migrations/versions
-    command: sh -c "alembic upgrade head && python main.py"
+    command: bash -c "cd /code/tgbot_app && alembic upgrade head && python main.py"
 
     # command: sh -c "alembic upgrade head && chmod +x ./bash.sh && python main.py"
 
